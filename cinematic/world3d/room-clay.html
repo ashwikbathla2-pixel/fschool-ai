@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Your room</title>
+<script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script>
+<style>
+  @view-transition { navigation: auto; }                    /* no blank frame between levels (Chromium); other browsers just cut */
+  :root { --ink: #1c1b19; --mute: #6d6a63; --line: #0000001a; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #fbfaf8; color: var(--ink); font: 14px/1.4 system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  #stage { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+  #stage[hidden], #flat[hidden], #toast[hidden] { display: none; }
+  header { position: fixed; left: 16px; top: max(14px, env(safe-area-inset-top)); pointer-events: none; }
+  h1 { margin: 0; font-size: 15px; font-weight: 650; } #status { color: var(--mute); font-size: 12px; }
+  #targets { position: fixed; left: 12px; right: 12px; bottom: max(14px, env(safe-area-inset-bottom)); display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  button { min-height: 44px; min-width: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 22px; background: #fffe; color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; backdrop-filter: blur(8px); }
+  button.main { background: var(--ink); color: #fff; border-color: var(--ink); }
+  button:focus-visible { outline: 2px solid #4f46e5; outline-offset: 2px; }
+  #veil { position: fixed; inset: 0; background: #fbfaf8; opacity: 0; pointer-events: none; transition: opacity .55s ease .2s; } #veil.on { opacity: 1; }
+  #summary { position: fixed; left: 50%; top: 22%; transform: translateX(-50%); min-width: 240px; padding: 16px 20px; border-radius: 18px; background: #fffe; border: 1px solid var(--line); box-shadow: 0 12px 40px #0000001f; display: flex; flex-direction: column; gap: 4px; }
+  #summary[hidden] { display: none; } #summary span { color: var(--mute); } #summary button { margin-top: 8px; }
+  #toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(max(14px, env(safe-area-inset-bottom)) + 104px); max-width: calc(100% - 32px); padding: 10px 16px; border-radius: 14px; background: var(--ink); color: #fff; }
+  #flat { position: fixed; inset: 0; display: grid; place-items: center; padding: 70px 16px 130px; }
+  #flat svg { width: min(100%, 900px); height: auto; } #flat { position: fixed; }
+  .hot { position: absolute; transform: translate(-50%, -50%); }
+  @media (max-width: 560px) { #targets button { padding: 0 12px; } }
+</style></head>
+<body>
+<canvas id="stage" role="img" aria-label="Your study room. Drag to rotate. Use the buttons below to open the desk, whiteboard, bookshelf and more."></canvas>
+<div id="flat" hidden style="position:fixed"></div>
+<header><h1 id="theme-name">Your room</h1><div id="status" role="status">Loading…</div></header>
+<div id="summary" role="status" hidden></div>
+<div id="veil" aria-hidden="true"></div>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+<nav id="targets" aria-label="Things in your room"></nav>
+<script type="module" src="RoomClay.js"></script>
+</body></html>

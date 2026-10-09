@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Study World</title>
+<!-- The one app entry (PRD section 4). First visit goes to the lobby; after that it opens on your room. ?level=tower|room|desk deep-links; ?level=desk loads no 3D. -->
+<script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script>
+<link rel="stylesheet" href="shell.css" />
+</head>
+<body>
+<div id="shell" data-level="">
+  <header class="bar">
+    <button type="button" id="back" class="pill" hidden><span aria-hidden="true">&lsaquo;</span><span class="t">Back</span></button>
+    <ol id="crumb" class="crumb" aria-label="Where you are"></ol>
+  </header>
+  <main class="stage"></main>
+  <p id="live" class="sr" aria-live="polite"></p>
+</div>
+<noscript>Study World needs JavaScript.</noscript>
+<script type="module">
+  import { boot } from './shell.js';
+  boot();
+</script>
+</body>
+</html>

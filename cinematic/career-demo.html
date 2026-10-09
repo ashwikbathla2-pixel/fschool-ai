@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Career transition demo</title>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+<style>body{margin:0;background:#f6efe3;font:16px Inter,sans-serif}#bar{position:fixed;bottom:8px;left:8px;z-index:99;display:flex;gap:6px;flex-wrap:wrap}</style></head>
+<body><div id="career-mount"></div><div id="bar"></div>
+<script type="module">
+import { debugPanel } from "./world3d/Safety.js";
+debugPanel();
+import { mount } from './CareerTransition.js';
+import * as S from './state.js';
+mount(document.getElementById('career-mount'));
+const q = new URLSearchParams(location.search).get('q');
+for (const t of ['I want to become a doctor','build robots','software engineer','start my own company','scientist','astronaut','designer','I do not know yet'])
+  bar.insertAdjacentHTML('beforeend', `<button>${t}</button>`);
+bar.onclick = e => e.target.tagName==='BUTTON' && location.assign('?q='+encodeURIComponent(e.target.textContent));
+if (q) S.emit('career', { career_goal: q, confidence: /know/.test(q) ? 0.2 : 0.9 });
+</script><div id="cm-fail" style="display:none;position:fixed;inset:0;place-items:center;place-content:center;text-align:center;font:500 1.1rem Inter,sans-serif;color:#1f3350;background:#ece3d2;padding:24px">The 3D preview could not start on this device.<br><small style="opacity:.8">Add ?debug to the address to see why.</small></div>
+</body></html>

@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3D rooms demo</title>
+<script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script>
+<style>html,body{margin:0;height:100%;background:#ece3d2}#h{position:fixed;inset:0}.cm3-label{position:absolute;left:0;top:0;font:500 12px Inter,sans-serif;background:#1f3350;color:#f6efe3;padding:4px 10px;border-radius:99px;opacity:0;transition:opacity .4s;white-space:nowrap}.cm3-label.on{opacity:1}#o{position:absolute;inset:0;pointer-events:none}</style></head>
+<body><div id="h"><div id="o"></div></div>
+<script type="module">
+import { debugPanel } from "./Safety.js";
+debugPanel();
+addEventListener("unhandledrejection", () => { document.getElementById("cm-fail").style.display = "grid"; });
+addEventListener("error", e => { if (/three|WebGL|module|import/i.test(String(e.message))) document.getElementById("cm-fail").style.display = "grid"; });
+import { createStage, createDollhouse } from './Dollhouse.js';
+const q = new URLSearchParams(location.search);
+const types = (q.get('rooms') || 'biology,chemistry,physics,research,medical,math').split(',');
+const stage = createStage(document.getElementById('h'));
+const d = createDollhouse(stage, { rooms: types, overlay: document.getElementById('o') });
+window.d = d; window.stage = stage;
+const mode = q.get('mode') || 'overview';
+if (mode === 'overview') { d.startOverview(); d.dimAll(); } else d.enter(+mode || 0, 2);
+if (q.get('light')) d.lightPath();
+</script><div id="cm-fail" style="display:none;position:fixed;inset:0;place-items:center;place-content:center;text-align:center;font:500 1.1rem Inter,sans-serif;color:#1f3350;background:#ece3d2;padding:24px">The 3D preview could not start on this device.<br><small style="opacity:.8">Add ?debug to the address to see why.</small></div>
+</body></html>

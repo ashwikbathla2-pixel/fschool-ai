@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Tower render spike</title>
+<script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script>
+<style>
+  @view-transition { navigation: auto; }
+  :root { --ink: #1c1b19; --mute: #6d6a63; --paper: #f6f3ed; --line: #0000001a; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: linear-gradient(#fbfaf7, #ece8df); color: var(--ink); font: 14px/1.4 system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+  canvas:active { cursor: grabbing; }
+  .bar { position: fixed; left: 16px; right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; pointer-events: none; }
+  .bar > * { pointer-events: auto; }
+  button { min-height: 44px; min-width: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 22px; background: #fffd; backdrop-filter: blur(8px); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; }
+  button:focus-visible { outline: 2px solid #4f46e5; outline-offset: 2px; }
+  button.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .top { position: fixed; left: 16px; right: 16px; top: max(14px, env(safe-area-inset-top)); display: flex; flex-direction: column; gap: 6px; pointer-events: none; }
+  h1 { margin: 0; font-size: 15px; font-weight: 650; letter-spacing: .01em; }
+  #hud, #bench-out { color: var(--mute); font-variant-numeric: tabular-nums; font-size: 12px; }
+  #bench-out { flex: 1 1 240px; }
+  #card { position: fixed; right: 16px; top: max(14px, env(safe-area-inset-top)); max-width: 260px; padding: 12px 14px; border-radius: 14px; background: #fffe; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; box-shadow: 0 8px 28px #0000001a; }
+  #card[hidden] { display: none; }
+  #card span { color: var(--mute); } #card button { margin-top: 8px; }
+  .find { pointer-events: auto; display: flex; flex-direction: column; gap: 6px; max-width: 320px; }
+  .find input { min-height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 22px; background: #fffd; font: inherit; color: var(--ink); }
+  #results, #friends { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; } #friends { flex-direction: row; flex-wrap: wrap; } #results span { color: var(--mute); padding: 4px 8px; }
+  #results button, #friends button { min-height: 44px; font-weight: 500; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  #loading { position: fixed; inset: 0; display: grid; place-items: center; color: var(--mute); }
+  @media (max-width: 560px) { #card { top: 64px; left: 16px; right: 16px; max-width: none; } }
+</style>
+</head>
+<body>
+<canvas id="tower-canvas" role="img" aria-label="Cutaway of a tower with ten thousand lit and dim study rooms. Drag to pan, pinch or scroll to zoom, tap a room for details."></canvas>
+<div class="top"><h1>FschoolAI tower · render spike</h1><div id="hud">starting…</div>
+  <div class="find" role="search"><label class="sr" for="find">Find a friend by display name</label><input id="find" type="search" placeholder="Find a friend, like Quiet Otter" autocomplete="off" aria-controls="results" /><div id="results" role="listbox" aria-label="Matches"></div><div id="friends" aria-label="Your friends" hidden></div></div></div>
+<div id="card" hidden role="status"></div>
+<p class="sr" id="live" aria-live="polite"></p>
+<div class="bar">
+  <button id="btn-me" class="primary" aria-keyshortcuts="f">Find me</button>
+  <button id="btn-all">Whole tower</button>
+  <button id="btn-top">Top floors</button>
+  <button id="btn-bench">Run 13 s benchmark</button>
+  <span id="bench-out" aria-live="polite"></span>
+</div>
+<div id="loading">Building the tower…</div>
+<script type="module" src="tower.js"></script>
+</body>
+</html>

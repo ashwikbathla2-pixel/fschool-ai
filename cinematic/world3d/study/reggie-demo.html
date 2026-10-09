@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reggie demo</title>
+<script type="importmap">{"imports":{"three":"../../vendor/three.module.js"}}</script>
+<style>html,body{margin:0;height:100%;background:#ece3d2;font:500 14px Inter,sans-serif;color:#1f3350}#h{position:fixed;inset:0}#ui{position:fixed;left:12px;top:12px;display:flex;gap:6px}button{padding:6px 12px;border-radius:8px;border:1px solid #1f335055;background:#fff;cursor:pointer}</style></head>
+<body><div id="h"></div><div id="ui"></div>
+<script type="module">
+import * as THREE from 'three';
+import { createReggie, MOODS } from './Reggie.js';
+const q = new URLSearchParams(location.search), clear = q.get('clear') === '1';
+if (clear) document.documentElement.style.background = document.body.style.background = 'transparent';
+const host = document.getElementById('h'), W = () => host.clientWidth, H = () => host.clientHeight;
+const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true }); r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.setSize(W(), H()); host.appendChild(r.domElement);
+r.shadowMap.enabled = true; r.setClearColor(0x000000, clear ? 0 : 1); if (!clear) r.setClearColor(0xece3d2, 1);
+const scene = new THREE.Scene();
+scene.add(new THREE.HemisphereLight(0xffffff, 0xb9a9e8, 1.4));
+const sun = new THREE.DirectionalLight(0xffffff, 2.2); sun.position.set(1.5, 2.5, 2.5); sun.castShadow = true; scene.add(sun);
+const rim = new THREE.DirectionalLight(0xc7b8ff, 1.0); rim.position.set(-2, 1, -2); scene.add(rim);
+if (!clear) { const fl = new THREE.Mesh(new THREE.CircleGeometry(2, 40), new THREE.ShadowMaterial({ opacity: .25 })); fl.rotation.x = -Math.PI / 2; fl.receiveShadow = true; scene.add(fl); }
+const reggie = createReggie(); scene.add(reggie.group);
+const cam = new THREE.PerspectiveCamera(30, W() / H(), .1, 50);
+const ang = +(q.get('ang') || 0) * Math.PI / 180, d = +(q.get('d') || 2.1), cy = +(q.get('cy') || .3);
+cam.position.set(Math.sin(ang) * d, cy + .1, Math.cos(ang) * d); cam.lookAt(0, cy, 0);
+reggie.setState(q.get('mood') || 'idle');
+const ui = document.getElementById('ui'); if (clear) ui.style.display = 'none';
+Object.keys(MOODS).forEach(m => { const b = document.createElement('button'); b.textContent = MOODS[m]; b.onclick = () => reggie.setMood(m); ui.appendChild(b); });
+const b = document.createElement('button'); b.textContent = 'Walk'; b.onclick = () => reggie.setHome((Math.random() - .5) * 1.6, (Math.random() - .5) * .8, 0); ui.appendChild(b);
+let last = performance.now(); const step = (dt) => { reggie.update(dt); r.render(scene, cam); };
+window.__step = (n, dt = 1 / 30) => { for (let i = 0; i < n; i++) step(dt); window.__tris = r.info.render.triangles; window.__calls = r.info.render.calls; };
+addEventListener('resize', () => { r.setSize(W(), H()); cam.aspect = W() / H(); cam.updateProjectionMatrix(); });
+if (q.get('static') !== '1') r.setAnimationLoop(t => { const dt = (t - last) / 1000; last = t; step(dt); });
+let rt = 0, rm = 0; reggie.group.traverse(o => { if (o.isMesh) { rm++; rt += o.geometry.index.count / 3; } }); window.__reggie = { tris: rt, meshes: rm }; console.log('reggie tris', rt, 'meshes', rm);
+window.__ready = true;
+</script></body></html>

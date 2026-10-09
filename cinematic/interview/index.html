@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Lobby interview</title>
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="interview.css" />
+</head>
+<body>
+<div id="app"><noscript>This interview needs JavaScript.</noscript></div>
+<script type="module">
+  import { mount } from './Interview.js';
+  const app = document.getElementById('app');
+  try { mount(app, {}); } catch (e) { console.error(e); app.textContent = 'Something went wrong loading the interview. Please reload.'; }
+</script>
+</body>
+</html>

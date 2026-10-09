@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Room</title>
+<script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script>
+<link rel="stylesheet" href="room.css" />
+<style>html, body { margin: 0; height: 100%; background: #fff; } #app { height: 100%; }</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="module">
+// Standalone harness for the Room module. The real app mounts it through app/shell.js; this page fakes just enough ctx.
+// Query: ?theme=pilot|coder|doctor|studio  ?floor=N  ?floors=N  ?g=off|waiting|protected|at-risk  ?flat=1  ?quality=low|mid|high  ?motion=reduce
+import { mount } from './Room.js';
+import { loadProfile, loadStudent, loadEvents, profileFromAnswers, makeNav } from '../app/contract.js';
+
+const q = new URLSearchParams(location.search), DAY = 864e5, now = Date.now();
+const dreams = { pilot: 'a pilot', coder: 'a software engineer', doctor: 'a doctor', studio: 'a marine biologist' };
+let profile = loadProfile();
+if (q.get('theme') || !profile) profile = profileFromAnswers({ dream: dreams[q.get('theme')] || dreams.pilot, why: 'demo', learning: 'doing', courses: ['Physics 121', 'Calculus'], hours: 5, worried: 'Physics 121' });
+let student = loadStudent(profile), events = loadEvents();
+
+// Demo guarantee states so every shield can be seen. Only applied when ?g= is present; real data is untouched otherwise.
+const g = q.get('g');
+if (g) {
+  const week = i => Array.from({ length: 7 }, (_, k) => ({ id: `d${i}-${k}`, studentId: 'me', type: 'block', course: 'Physics 121', ts: now - (28 - i * 7) * DAY + k * DAY * 0.9 + DAY, minutes: 25, verified: true }));
+  student = { id: 'me', joinedTs: now - 40 * DAY, tier: 'pro', gradeSourceVerified: true, plan: { startTs: now - 28.5 * DAY, hoursPerWeek: 5, course: 'Physics 121' }, planBlocksTotal: { 'Physics 121': 12 }, paidCourses: [] };
+  events = g === 'protected' ? [0, 1, 2, 3].flatMap(week) : g === 'at-risk' ? [0, 1].flatMap(week) : [];
+  if (g === 'waiting') student.joinedTs = now - 3 * DAY, student.plan.startTs = now - 3 * DAY;
+  if (g === 'off') student = { ...student, tier: 'basic' };
+}
+const nav = makeNav((to, from, opts) => { document.title = `Room -> ${to}`; console.info('[nav]', from, '->', to, opts); window.__lastNav = { to, from, opts }; });
+const handle = mount(document.getElementById('app'), { profile, student, events, nav, level: 'room', floor: +q.get('floor') || undefined, floorCount: +q.get('floors') || undefined });
+window.__room = handle;
+</script>
+</body>
+</html>

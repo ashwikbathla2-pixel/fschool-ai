@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Receptionist test</title>
+<script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script>
+<style>html,body{margin:0;height:100%;background:#ece3d2}canvas{display:block}</style></head><body>
+<script type="module">
+import * as THREE from 'three';
+import { loadReceptionistGLB } from './ReceptionistGLB.js';
+const q = new URLSearchParams(location.search), r = new THREE.WebGLRenderer({ antialias: true }); r.setSize(innerWidth, innerHeight); document.body.append(r.domElement);
+const scene = new THREE.Scene(); scene.background = new THREE.Color('#ece3d2');
+scene.add(new THREE.HemisphereLight('#fff6e6', '#b79a78', 1.3)); const sun = new THREE.DirectionalLight('#fff1d6', 1.8); sun.position.set(2, 3, 4); scene.add(sun);
+const g = await loadReceptionistGLB({ quality: { shadows: false, tier: 'high' }, position: new THREE.Vector3(0, 0, 0) }); scene.add(g.root);
+window.__g = g; g.root.traverse(o => { if (o.isMesh) (window.__m ||= []).push(o); });
+const cam = new THREE.PerspectiveCamera(30, innerWidth / innerHeight, 0.05, 50), d = +q.get('d') || 1.0, y = +q.get('y') || 1.55;
+cam.position.set(0, y, d); cam.lookAt(0, y - 0.02, 0);
+g.update(0, 0.016, cam.position, true);
+for (let i = 0; i < 5; i++) { g.update(i * 0.1, 0.1, cam.position, true); }
+const clock = new THREE.Clock(); (function loop(){ requestAnimationFrame(loop); if (!window.__manual) g.update(clock.elapsedTime, Math.min(clock.getDelta(), 0.05), cam.position, true); r.render(scene, cam); })();
+</script></body></html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Vegetation demo</title>
+<script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script>
+<style>html,body{margin:0;height:100%;background:#bfe3f5;overflow:hidden}canvas{display:block}</style></head>
+<body><script type="module">
+import * as THREE from 'three';
+import { createVegetationSystem } from './VegetationSystem.js';
+const q = new URLSearchParams(location.search), tier = q.get('quality') || 'high';
+const r = new THREE.WebGLRenderer({ antialias: true }); r.setSize(innerWidth, innerHeight); r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.toneMapping = THREE.ACESFilmicToneMapping; document.body.appendChild(r.domElement);
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0xbfe3f5); scene.fog = new THREE.Fog(0xcfe9f5, 90, 380);
+scene.add(new THREE.HemisphereLight(0xdff2ff, 0x8fbf6a, 1.1)); const sun = new THREE.DirectionalLight(0xfff0c8, 2.4); sun.position.set(-40, 70, 50); scene.add(sun);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(700, 700), new THREE.MeshStandardMaterial({ color: 0x7fc24a, roughness: 1 })); ground.rotation.x = -Math.PI / 2; scene.add(ground);
+const veg = createVegetationSystem({ quality: { tier }, groundY: () => 0, shadows: false }); scene.add(veg.group);
+const cam = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, .5, 900); cam.position.set(+(q.get('x') || 0), +(q.get('y') || 7), +(q.get('z') || 95)); cam.lookAt(+(q.get('tx') || -30), +(q.get('ty') || 3), +(q.get('tz') || 20));
+let t = 0; r.setAnimationLoop(() => { t += .016; veg.update(t); r.render(scene, cam); }); window.__ready = true; window.__stats = veg.stats;
+</script></body></html>

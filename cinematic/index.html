@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>FSCHOOLAI — School, reimagined.</title>
+  <meta name="description" content="Walk into FSCHOOLAI. Tell us where you want to go and we will build the path." />
+  <meta name="theme-color" content="#1f1d1b" />
+  <link rel="icon" href="poster/logo.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="cinematic.css" />
+</head>
+<body class="cine-active">
+  <div id="cine-scroll" aria-hidden="true"></div>
+
+  <main id="cine-stage" aria-label="FSCHOOLAI cinematic onboarding">
+    <canvas id="cine-canvas" aria-hidden="true"></canvas>
+    <div class="cine-scrim" aria-hidden="true"></div>
+    <div class="cine-focus-veil" aria-hidden="true"></div>
+
+    <div id="cine-hero" class="cine-hero">
+      <h1 class="cine-wordmark">FSCHOOL<span>AI</span></h1>
+      <p class="cine-tagline">School, reimagined.</p>
+      <p class="cine-cue" id="cine-cue"><i aria-hidden="true"></i>Scroll</p>
+    </div>
+
+    <div id="cine-captions" class="cine-captions"></div>
+    <p class="cine-sr" id="cine-live" aria-live="polite"></p>
+
+    <div id="cine-reception" class="cine-reception" aria-hidden="true">
+      <p class="cine-sign">Reception</p>
+      <h2 id="cine-question" class="cine-question"></h2>
+    </div>
+
+    <!-- mount points owned by other modules -->
+    <div id="voice-mount" class="cine-mount cine-voice"></div>
+    <div id="career-mount" class="cine-mount cine-career"></div>
+
+    <nav id="cine-progress" class="cine-progress" aria-label="Chapters"></nav>
+    <button id="cine-skip" class="cine-skip" type="button">Skip to reception</button>
+
+    <div id="cine-veil" class="cine-veil" aria-hidden="true"></div>
+    <div id="cine-loader" class="cine-loader" role="status" aria-label="Loading">
+      <img src="poster/logo.jpeg" alt="FSCHOOLAI" width="132" height="132" />
+    </div>
+  </main>
+
+  <noscript><p style="padding:2rem;color:#f4ecdf">FSCHOOLAI needs JavaScript to run.</p></noscript>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+  <script type="module" src="CinematicOnboarding.js"></script>
+</body>
+</html>

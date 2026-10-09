@@ -1,0 +1,47 @@
+/* Room look: calm white studio, matte clay, Apple-like. No dark mode mansion, no neon. Accent comes from the theme (--accent). */
+.room { --ink: #1d1d1f; --mute: #6e6e73; --line: #0000001a; --paper: #fff; --focus: #4f46e5; position: relative; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 8px; width: 100%; height: 100%; min-height: 520px; padding: max(12px, env(safe-area-inset-top)) 16px max(12px, env(safe-area-inset-bottom)); background: #fff; color: var(--ink); font: 15px/1.4 system-ui, -apple-system, 'Segoe UI', sans-serif; box-sizing: border-box; overflow: hidden; }
+.room *, .room *::before, .room *::after { box-sizing: border-box; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.room-hud { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 16px; }
+.room-title { margin: 0; font-size: 20px; font-weight: 650; letter-spacing: -.01em; }
+.room-sub { margin: 2px 0 0; color: var(--mute); font-size: 13px; }
+
+/* Guarantee shield: colour AND text, never colour alone. green protected / orange at risk / indigo waiting / none off. */
+.room-shield { --s: #b8b6b0; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 6px 14px 6px 10px; border: 1px solid var(--line); border-radius: 22px; background: #fffc; }
+.room-shield[data-kind="protected"] { --s: #2f9e62; } .room-shield[data-kind="at-risk"] { --s: #ee8a1f; } .room-shield[data-kind="waiting"] { --s: #5b55d6; }
+.shield-glyph { flex: none; width: 22px; height: 26px; background: var(--s); clip-path: polygon(50% 0, 100% 16%, 100% 56%, 50% 100%, 0 56%, 0 16%); }
+.room-shield[data-kind="none"] .shield-glyph { background: repeating-linear-gradient(135deg, #cfcdc7 0 3px, #fff 3px 6px); }   /* hatched = no shield */
+.shield-text { display: flex; flex-direction: column; font-size: 12px; line-height: 1.3; color: var(--mute); } .shield-text strong { color: var(--ink); font-size: 13px; }
+.shield-text .strikes { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 600; }
+.room-shield.small { min-height: 0; padding: 6px 12px 6px 8px; margin-bottom: 8px; }
+
+.room-stage { position: relative; min-height: 260px; border-radius: 20px; overflow: hidden; background: #fff; touch-action: pan-y; }
+.room-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; outline: none; }
+.room-canvas:active { cursor: grabbing; } .room-canvas:focus-visible { box-shadow: inset 0 0 0 2px var(--focus); border-radius: 20px; }
+.room-loading { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--mute); }
+.room-tag { position: absolute; left: 0; top: 0; pointer-events: none; padding: 5px 10px; border-radius: 12px; background: var(--ink); color: #fff; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.flat-wrap { position: absolute; inset: 0; display: grid; place-items: center; }
+.flat-room { width: 100%; height: 100%; display: block; }
+.flat-room .tgt { cursor: pointer; } .flat-room .tgt > *:not(.hit) { transition: opacity .15s; } .flat-room .tgt.on { filter: drop-shadow(0 0 0 var(--accent)) drop-shadow(0 0 6px var(--accent)); }
+.flat-room .hit { pointer-events: all; }
+
+/* Accessible list of the same targets: always present, >= 44px, works without WebGL */
+.room-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+.room-item { width: 100%; min-height: 48px; padding: 8px 14px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; text-align: left; border: 1px solid var(--line); border-radius: 14px; background: #fafafa; color: var(--ink); font: inherit; cursor: pointer; transition: background .15s, border-color .15s; }
+.room-item-label { font-weight: 600; } .room-item-hint { font-size: 12px; color: var(--mute); }
+.room-item:hover, .room-item.on { background: #fff; border-color: var(--accent); } .room-item[aria-expanded="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.room button:focus-visible, .room input:focus-visible, .room [tabindex]:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.room-panel { position: absolute; left: 16px; right: 16px; bottom: 16px; max-width: 460px; max-height: 70%; overflow: auto; margin: 0 auto; padding: 16px 18px; border: 1px solid var(--line); border-radius: 20px; background: #fffffff2; backdrop-filter: blur(14px); box-shadow: 0 18px 50px #0000001f; z-index: 3; }
+.room-panel[hidden] { display: none; } .room-panel:focus { outline: none; }
+.panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; } .panel-head h3 { margin: 0; font-size: 17px; }
+.panel-lines { margin: 10px 0; padding: 0; list-style: none; display: grid; gap: 6px; } .panel-lines li { color: #3a3a3d; }
+.panel-note { margin: 6px 0 0; font-size: 12px; color: var(--mute); }
+.room button { font: inherit; } .panel-close, .panel-action, .panel-talk button { min-height: 44px; min-width: 44px; padding: 0 16px; border-radius: 22px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-weight: 600; cursor: pointer; }
+.panel-action { margin-top: 6px; background: var(--ink); color: #fff; border-color: var(--ink); }
+.panel-talk { display: flex; gap: 8px; margin-top: 8px; } .panel-talk input { flex: 1; min-width: 0; min-height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 22px; font: inherit; }
+
+@media (max-width: 560px) { .room { padding-left: 12px; padding-right: 12px; } .room-list { grid-template-columns: 1fr 1fr; } .room-item-hint { display: none; } .room-panel { left: 12px; right: 12px; } }
+@media (prefers-reduced-motion: reduce) { .room *, .room-item { transition: none !important; animation: none !important; } }
+[data-reduced-motion] .room *, [data-reduced-motion] .room-item { transition: none !important; animation: none !important; }

@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Characters demo</title>
+<script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script>
+<style>html,body{margin:0;height:100%;background:#ece3d2}#h{position:fixed;inset:0}</style></head><body><div id="h"></div>
+<script type="module">
+import { debugPanel } from "./Safety.js";
+debugPanel();
+addEventListener("unhandledrejection", () => { document.getElementById("cm-fail").style.display = "grid"; });
+addEventListener("error", e => { if (/three|WebGL|module|import/i.test(String(e.message))) document.getElementById("cm-fail").style.display = "grid"; });
+import * as THREE from 'three';
+import { createStage } from './Dollhouse.js';
+import { loadKit, createStudent } from './Characters.js';
+const stage = createStage(document.getElementById('h')); const {scene,camera}=stage;
+scene.add(new THREE.HemisphereLight('#fff6e6','#b79a78',1.1)); const sun=new THREE.DirectionalLight('#fff1d6',1.6); sun.position.set(3,6,5); scene.add(sun);
+const qs=new URLSearchParams(location.search); const ang=+(qs.get('ang')||0), dist=+(qs.get('d')||6.5); camera.position.set(Math.sin(ang)*dist,1.3,Math.cos(ang)*dist); camera.lookAt(0,.95,0);
+const kit = await loadKit(); if (new URLSearchParams(location.search).get('nocoat')) kit.scene.traverse(o=>{if(/Outfit_Top/.test(o.name))o.visible=false;}); const poses=['idle','walk','agree','sit','type']; const list=[];
+poses.forEach((p,i)=>{ const s=createStudent(kit,{variant:i+1,pose:p}); s.object.position.set((i-2)*1.3,0,0); scene.add(s.object); list.push(s); });
+stage.addUpdater(dt=>list.forEach(s=>s.update(dt)));
+</script><div id="cm-fail" style="display:none;position:fixed;inset:0;place-items:center;place-content:center;text-align:center;font:500 1.1rem Inter,sans-serif;color:#1f3350;background:#ece3d2;padding:24px">The 3D preview could not start on this device.<br><small style="opacity:.8">Add ?debug to the address to see why.</small></div>
+</body></html>

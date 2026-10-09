@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Presence demo</title>
+<style>body{margin:0;padding:24px;background:#ece3d2;font:14px Inter,system-ui,sans-serif;color:#2b2d31}.me{margin:0 0 16px;display:flex;gap:8px;align-items:center}input{padding:6px 8px;border-radius:8px;border:1px solid #b9ad94}</style></head>
+<body><div class="me"><label>Name <input id="n" value="" maxlength="20"></label><label>Minutes <input id="m" type="number" value="0" min="0" style="width:70px"></label>
+<button id="s">Studying</button><button id="a">Away</button></div><div id="h"></div>
+<script type="module">
+import { createPresence } from './Presence.js';
+import { mountInvitePanel } from './InvitePanel.js';
+const p = window.presence = createPresence();
+const n = document.getElementById('n'), m = document.getElementById('m');
+n.value = new URLSearchParams(location.search).get('name') || 'Student ' + Math.floor(Math.random() * 90 + 10);
+const push = state => p.setStatus({ state, name: n.value, minutesToday: +m.value || 0 });
+let cur = 'away';
+s.onclick = () => push(cur = 'studying'); a.onclick = () => push(cur = 'away'); n.oninput = m.oninput = () => push(cur);
+push('away');
+mountInvitePanel(document.getElementById('h'), p);
+</script></body></html>

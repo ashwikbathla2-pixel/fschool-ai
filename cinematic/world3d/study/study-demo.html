@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Study room</title>
+<script type="importmap">{"imports":{"three":"../../vendor/three.module.js"}}</script>
+<style>@view-transition{navigation:auto}#back{position:fixed;right:16px;top:max(14px,env(safe-area-inset-top));min-height:44px;padding:0 18px;border:1px solid #0000001f;border-radius:22px;background:#fffe;color:#1c1b19;font:600 14px system-ui,sans-serif;cursor:pointer;display:none;z-index:5}html,body{margin:0;height:100%;background:#ece3d2}#h{position:fixed;inset:0}#cm-fail{display:none;position:fixed;inset:0;place-items:center;text-align:center;font:500 1.1rem Inter,sans-serif;color:#1f3350;background:#ece3d2;padding:24px}</style></head>
+<body><div id="h"></div><button id="back" type="button">Back to your room</button><div id="cm-fail">The study room could not start on this device.<br><small>Add ?debug to the address to see why.</small></div>
+<script type="module">
+import { debugPanel } from '../Safety.js';
+import { createStudyWorld } from './StudyWorld.js';
+debugPanel();
+const q = new URLSearchParams(location.search);
+// ?career=doctor|engineer|software|... ?night=1 ?speed=60 (timer speed-up for testing)
+let career = q.get('career');
+if (!career) { try { career = JSON.parse(localStorage.getItem('fschool.profile') || '{}').career_goal; } catch {} }
+// Room -> Desk -> Room (PRD section 4). Arrived from the room? Offer the way back; leaving pulls the camera back out of the desk with a summary.
+const back = q.get('from') === 'room' && q.get('back');
+if (back) {
+  const t0 = performance.now(), btn = document.getElementById('back'); btn.style.display = 'block';
+  btn.onclick = () => {
+    const u = new URL(back, location.href); u.searchParams.set('summary', '1');
+    u.searchParams.set('minutes', Math.max(0, Math.round((performance.now() - t0) / 60000)));
+    for (const k of ['blocks', 'keypoints', 'climb']) { const v = window.FSCHOOL_SESSION?.[k]; if (Number.isFinite(v)) u.searchParams.set(k, v); }   // the Desk fills window.FSCHOOL_SESSION with verified events
+    location.href = u.href;
+  };
+}
+try { await createStudyWorld(document.getElementById('h'), { career: career || 'default', night: q.get('night') === '1', speed: +(q.get('speed') || 1), intro: q.get('intro') === '1', line: q.get('intro') === '1' ? "Let's get you set up." : '' }); }
+catch (e) { console.error(e); document.getElementById('cm-fail').style.display = 'grid'; }
+
+</script></body></html>

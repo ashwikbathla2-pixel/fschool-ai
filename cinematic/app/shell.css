@@ -1,0 +1,28 @@
+/* App shell: calm white studio, matte surfaces. Light only. Levels bring their own styles; the shell only owns the bar, the stage and the error panel. */
+:root { color-scheme: light; --ink: #1d1d1f; --mute: #6e6e73; --paper: #fbfbfd; --card: #fff; --line: #0000001a; --accent: #4f8df7; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--paper); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+#shell { position: fixed; inset: 0; overflow: hidden; }
+.stage { position: absolute; inset: 0; }
+.lv { position: absolute; inset: 0; overflow: auto; background: var(--paper); transform-origin: 50% 50%; will-change: transform, opacity; }
+.lv[hidden] { display: none; }
+.lv-host { min-height: 100%; }
+.bar { position: absolute; z-index: 10; left: 0; right: 0; top: 0; padding: max(12px, env(safe-area-inset-top)) 16px 0; display: flex; align-items: center; gap: 12px; pointer-events: none; }
+.bar > * { pointer-events: auto; }
+button { font: inherit; }
+.pill { min-height: 44px; min-width: 44px; padding: 0 16px 0 12px; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 22px; background: #ffffffd9; backdrop-filter: blur(10px); color: var(--ink); font-weight: 600; cursor: pointer; }
+.pill[hidden] { display: none; }
+.pill span[aria-hidden] { font-size: 22px; line-height: 1; }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.crumb { list-style: none; margin: 0 0 0 auto; padding: 8px 14px; display: flex; gap: 10px; border-radius: 22px; background: #ffffffd9; backdrop-filter: blur(10px); border: 1px solid var(--line); font-size: 12px; color: var(--mute); }
+.crumb li + li::before { content: '/'; margin-right: 10px; color: #00000030; }
+.crumb .on { color: var(--ink); font-weight: 650; }
+/* leave room for the bar above level content */
+.lv-host > * { scroll-margin-top: 72px; }
+.err { max-width: 420px; margin: 20vh auto 0; padding: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; display: flex; flex-direction: column; gap: 10px; }
+.err h2 { margin: 0; font-size: 17px; } .err p { margin: 0; color: var(--mute); }
+.err-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+.err-row button { min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 22px; background: var(--card); color: var(--ink); font-weight: 600; cursor: pointer; }
+.err-row .primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .lv { will-change: auto; } }

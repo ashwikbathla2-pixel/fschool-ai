@@ -1,0 +1,589 @@
+{
+ "doctor": {
+  "label": "Medicine",
+  "art": "medicine",
+  "room": "Biology Lab",
+  "match": "doctor|medic|mbbs|neet|nurse|surgeon|physician|health|biolog",
+  "interpretation": "You want to understand the science behind the human body.",
+  "lines": [
+   "Then let's start building the path.",
+   "Biology.",
+   "Chemistry.",
+   "Physics.",
+   "Human health.",
+   "Scientific reasoning.",
+   "This is where your journey begins."
+  ],
+  "interests": [
+   "biology",
+   "chemistry",
+   "human_health"
+  ],
+  "foundations": [
+   "biology",
+   "chemistry",
+   "physics",
+   "reasoning"
+  ],
+  "modules": [
+   [
+    "Biology",
+    "Cells, systems, life."
+   ],
+   [
+    "Chemistry",
+    "How matter reacts."
+   ],
+   [
+    "Physics",
+    "Forces behind the body."
+   ],
+   [
+    "Research",
+    "Ask. Test. Verify."
+   ],
+   [
+    "Problem Solving",
+    "Reason under uncertainty."
+   ],
+   [
+    "Medical Foundations",
+    "Anatomy and human health."
+   ]
+  ],
+  "hero": 0
+ },
+ "engineer": {
+  "label": "Engineering",
+  "art": "engineering",
+  "room": "Engineering Workshop",
+  "match": "engineer|robot|mechanic|electric|civil|btech|b\\.tech|jee",
+  "interpretation": "You want to understand how things work, then build better ones.",
+  "lines": [
+   "Build.",
+   "Break.",
+   "Understand.",
+   "Build again.",
+   "Let's start."
+  ],
+  "interests": [
+   "robotics",
+   "physics",
+   "design"
+  ],
+  "foundations": [
+   "physics",
+   "mathematics",
+   "problem_solving",
+   "design"
+  ],
+  "modules": [
+   [
+    "Physics",
+    "Forces, energy, motion."
+   ],
+   [
+    "Mathematics",
+    "The language of design."
+   ],
+   [
+    "Electronics",
+    "Circuits and sensors."
+   ],
+   [
+    "CAD",
+    "Draw it before you make it."
+   ],
+   [
+    "Robotics",
+    "Machines that act."
+   ],
+   [
+    "Prototyping",
+    "Test, fail, improve."
+   ]
+  ],
+  "hero": 4
+ },
+ "software": {
+  "label": "Software",
+  "art": "software",
+  "room": "Technology Lab",
+  "match": "software|program|coder|coding|developer|computer|hack|cyber|\\bapps?\\b|\\bai\\b|machine learning",
+  "interpretation": "You want to build with code and understand the systems behind it.",
+  "lines": [
+   "Think in systems.",
+   "Programming.",
+   "Algorithms.",
+   "AI.",
+   "Systems.",
+   "Let's build."
+  ],
+  "interests": [
+   "programming",
+   "algorithms",
+   "ai"
+  ],
+  "foundations": [
+   "programming",
+   "mathematics",
+   "algorithms",
+   "systems"
+  ],
+  "modules": [
+   [
+    "Programming",
+    "Write clear, working code."
+   ],
+   [
+    "Mathematics",
+    "Logic and structure."
+   ],
+   [
+    "Algorithms",
+    "Solve problems efficiently."
+   ],
+   [
+    "Systems",
+    "How software fits together."
+   ],
+   [
+    "AI",
+    "Models that learn."
+   ],
+   [
+    "Projects",
+    "Ship something real."
+   ]
+  ],
+  "hero": 0
+ },
+ "scientist": {
+  "label": "Science",
+  "art": "science",
+  "room": "Research Laboratory",
+  "match": "scien|research|physicist|chemist|experiment|\\blab\\b",
+  "interpretation": "You want to ask questions nobody has answered yet.",
+  "lines": [
+   "Start with a question.",
+   "Experiment.",
+   "Observe.",
+   "Analyse.",
+   "Discover.",
+   "Let's begin."
+  ],
+  "interests": [
+   "research",
+   "experimentation",
+   "analysis"
+  ],
+  "foundations": [
+   "science",
+   "mathematics",
+   "reasoning",
+   "analysis"
+  ],
+  "modules": [
+   [
+    "Scientific Method",
+    "Question, test, conclude."
+   ],
+   [
+    "Chemistry",
+    "Matter and change."
+   ],
+   [
+    "Physics",
+    "The rules of nature."
+   ],
+   [
+    "Mathematics",
+    "Measure what you see."
+   ],
+   [
+    "Data Analysis",
+    "Find the signal."
+   ],
+   [
+    "Research",
+    "Design your own study."
+   ]
+  ],
+  "hero": 5
+ },
+ "entrepreneur": {
+  "label": "Business",
+  "art": "business",
+  "room": "Idea Studio",
+  "match": "entrepreneur|startup|start my own|company|business|founder|own boss",
+  "interpretation": "You want to turn ideas into something people use.",
+  "lines": [
+   "Every company starts as an idea.",
+   "Product.",
+   "People.",
+   "Strategy.",
+   "Let's build yours."
+  ],
+  "interests": [
+   "business",
+   "product",
+   "leadership"
+  ],
+  "foundations": [
+   "economics",
+   "communication",
+   "product",
+   "strategy"
+  ],
+  "modules": [
+   [
+    "Economics",
+    "Markets and choices."
+   ],
+   [
+    "Communication",
+    "Make people listen."
+   ],
+   [
+    "Product Thinking",
+    "Solve a real problem."
+   ],
+   [
+    "Strategy",
+    "Choose where to compete."
+   ],
+   [
+    "Leadership",
+    "Build and guide a team."
+   ],
+   [
+    "Building",
+    "Launch a small venture."
+   ]
+  ],
+  "hero": 2
+ },
+ "designer": {
+  "label": "Design",
+  "art": "design",
+  "room": "Design Studio",
+  "match": "design|ux|\\bui\\b|creative|graphic|product design",
+  "interpretation": "You want to shape how things look, feel and work.",
+  "lines": [
+   "Look closely.",
+   "Sketch.",
+   "Refine.",
+   "Prototype.",
+   "Make it clear.",
+   "Let's start."
+  ],
+  "interests": [
+   "design",
+   "visual_thinking",
+   "technology"
+  ],
+  "foundations": [
+   "design",
+   "creativity",
+   "technology",
+   "communication"
+  ],
+  "modules": [
+   [
+    "Visual Thinking",
+    "Composition and hierarchy."
+   ],
+   [
+    "Sketching",
+    "Ideas on paper, fast."
+   ],
+   [
+    "Digital Design",
+    "Tools of the trade."
+   ],
+   [
+    "Technology",
+    "What can be built."
+   ],
+   [
+    "Communication",
+    "Explain your choices."
+   ],
+   [
+    "Prototyping",
+    "Make it real."
+   ]
+  ],
+  "hero": 2
+ },
+ "artist": {
+  "label": "Art",
+  "art": "art",
+  "room": "Art Studio",
+  "match": "artist|\\bart\\b|paint|draw|illustrat|music|sculpt|animat|film",
+  "interpretation": "You want to express ideas through craft.",
+  "lines": [
+   "Start with what you see.",
+   "Line.",
+   "Colour.",
+   "Form.",
+   "Make something."
+  ],
+  "interests": [
+   "art",
+   "creativity",
+   "expression"
+  ],
+  "foundations": [
+   "drawing",
+   "colour",
+   "art_history",
+   "creativity"
+  ],
+  "modules": [
+   [
+    "Drawing",
+    "See, then draw."
+   ],
+   [
+    "Colour",
+    "Mood and meaning."
+   ],
+   [
+    "Form",
+    "Depth and structure."
+   ],
+   [
+    "Art History",
+    "What came before."
+   ],
+   [
+    "Technique",
+    "Master a medium."
+   ],
+   [
+    "Portfolio",
+    "Show your voice."
+   ]
+  ],
+  "hero": 0
+ },
+ "architect": {
+  "label": "Architecture",
+  "art": "architecture",
+  "room": "Drafting Studio",
+  "match": "architect|building design|urban|interior",
+  "interpretation": "You want to design spaces people live in.",
+  "lines": [
+   "Every building begins as a line.",
+   "Space.",
+   "Structure.",
+   "Light.",
+   "Let's draw it."
+  ],
+  "interests": [
+   "design",
+   "spatial_reasoning",
+   "engineering"
+  ],
+  "foundations": [
+   "mathematics",
+   "design",
+   "engineering",
+   "spatial_reasoning"
+  ],
+  "modules": [
+   [
+    "Mathematics",
+    "Geometry and scale."
+   ],
+   [
+    "Drawing",
+    "Plans and sections."
+   ],
+   [
+    "Structures",
+    "Why buildings stand."
+   ],
+   [
+    "Design",
+    "Form follows purpose."
+   ],
+   [
+    "Materials",
+    "Choose what it's made of."
+   ],
+   [
+    "Studio Project",
+    "Design a small space."
+   ]
+  ],
+  "hero": 3
+ },
+ "lawyer": {
+  "label": "Law",
+  "art": "law",
+  "room": "Moot Hall",
+  "match": "lawyer|\\blaw\\b|attorney|advocate|judge|legal",
+  "interpretation": "You want to argue well and protect what's fair.",
+  "lines": [
+   "Listen first.",
+   "Reason.",
+   "Argue.",
+   "Decide.",
+   "Let's begin."
+  ],
+  "interests": [
+   "reasoning",
+   "communication",
+   "argumentation"
+  ],
+  "foundations": [
+   "reasoning",
+   "communication",
+   "analysis",
+   "argumentation"
+  ],
+  "modules": [
+   [
+    "Reasoning",
+    "Build sound arguments."
+   ],
+   [
+    "Reading",
+    "Parse dense text."
+   ],
+   [
+    "Communication",
+    "Speak with precision."
+   ],
+   [
+    "Civics",
+    "How rules are made."
+   ],
+   [
+    "Analysis",
+    "Weigh evidence."
+   ],
+   [
+    "Moot Court",
+    "Argue both sides."
+   ]
+  ],
+  "hero": 5
+ },
+ "astronaut": {
+  "label": "Space",
+  "art": "space",
+  "room": "Observatory",
+  "match": "astronaut|space|rocket|astronom|nasa|planet",
+  "interpretation": "You want to work beyond Earth.",
+  "lines": [
+   "Look up.",
+   "Physics.",
+   "Astronomy.",
+   "Engineering.",
+   "Systems.",
+   "Let's launch."
+  ],
+  "interests": [
+   "astronomy",
+   "physics",
+   "engineering"
+  ],
+  "foundations": [
+   "physics",
+   "astronomy",
+   "engineering",
+   "mathematics"
+  ],
+  "modules": [
+   [
+    "Physics",
+    "Gravity and motion."
+   ],
+   [
+    "Mathematics",
+    "Orbits and numbers."
+   ],
+   [
+    "Astronomy",
+    "Know the sky."
+   ],
+   [
+    "Engineering",
+    "Spacecraft basics."
+   ],
+   [
+    "Systems",
+    "Keep everything running."
+   ],
+   [
+    "Fitness",
+    "Prepare body and mind."
+   ]
+  ],
+  "hero": 2
+ },
+ "unknown": {
+  "label": "Discovery",
+  "art": "discovery",
+  "room": "The Open School",
+  "match": "$^",
+  "interpretation": "You don't have to know yet. Let's explore.",
+  "lines": [
+   "You don't have to know yet.",
+   "Let's explore.",
+   "Science.",
+   "Technology.",
+   "Arts.",
+   "Business.",
+   "Humanities.",
+   "Design.",
+   "Sports.",
+   "Open a door."
+  ],
+  "interests": [
+   "exploration"
+  ],
+  "foundations": [
+   "science",
+   "technology",
+   "arts",
+   "business",
+   "humanities",
+   "design",
+   "sports"
+  ],
+  "modules": [
+   [
+    "Science",
+    "Ask how the world works."
+   ],
+   [
+    "Technology",
+    "Build with tools."
+   ],
+   [
+    "Arts",
+    "Make and express."
+   ],
+   [
+    "Business",
+    "Turn ideas into action."
+   ],
+   [
+    "Humanities",
+    "People, history, meaning."
+   ],
+   [
+    "Design",
+    "Shape experiences."
+   ],
+   [
+    "Sports",
+    "Learn through movement."
+   ]
+  ]
+ }
+}
